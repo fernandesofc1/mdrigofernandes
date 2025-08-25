@@ -1,0 +1,8 @@
+cd .\Documents\blog-rodrigo
+
+cd "C:\Users\cntmo\Documents\blog-rodrigo"
+
+hugo server -D
+
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIgpgsN8D2Ojm6jIUw9RGdoK0dQDdS8lOivs9BTRW1+2 fernandes@DESKTOP-L26L3E0
