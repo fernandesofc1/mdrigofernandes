@@ -1,5 +1,8 @@
 ---
 title: "Sobre"
-description: "Quem sou eu e o propósito deste blog."
+date: 2025-08-25T09:00:00-03:00
+lastmod: 2025-08-25T09:00:00-03:00
 draft: false
+type: "page"
 ---
+Escreva aqui um resumo sobre você, sua proposta para o blog, temas que mais escreve etc.
