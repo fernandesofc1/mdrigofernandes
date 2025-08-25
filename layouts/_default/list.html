@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{{ .Title }} · {{ .Site.Title }}</title>
+  {{ with .Description }}<meta name="description" content="{{ . | plainify }}">{{ end }}
+  <link rel="canonical" href="{{ .Permalink }}">
+  <meta property="og:title" content="{{ .Title }} · {{ .Site.Title }}">
+  {{ with .Description }}<meta property="og:description" content="{{ . | plainify }}">{{ end }}
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="{{ "/" | relURL }}">Rodrigo <span>Fernandes</span></a>
+      <nav class="nav" aria-label="Menu principal">
+  {{ $cur := .RelPermalink }}
+  {{ $items := .Site.Menus.main }}
+  {{ if gt (len $items) 0 }}
+    {{ range $items }}
+      {{ $href := .URL | relURL }}
+      {{ $active := strings.HasPrefix $cur $href }}
+      <a href="{{ $href }}" {{ if $active }}class="active" aria-current="page"{{ end }}>{{ .Name }}</a>
+    {{ end }}
+  {{ else }}
+    {{ $s := relURL "/sobre/" }}<a href="{{ $s }}" {{ if (strings.HasPrefix $cur $s) }}class="active" aria-current="page"{{ end }}>Sobre</a>
+    {{ $p := relURL "/paternidade/" }}<a href="{{ $p }}" {{ if (strings.HasPrefix $cur $p) }}class="active" aria-current="page"{{ end }}>Paternidade</a>
+    {{ $f := relURL "/fe/" }}<a href="{{ $f }}" {{ if (strings.HasPrefix $cur $f) }}class="active" aria-current="page"{{ end }}>Fé</a>
+    {{ $r := relURL "/reflexoes/" }}<a href="{{ $r }}" {{ if (strings.HasPrefix $cur $r) }}class="active" aria-current="page"{{ end }}>Reflexões</a>
+    {{ $c := relURL "/contato/" }}<a href="{{ $c }}" {{ if (strings.HasPrefix $cur $c) }}class="active" aria-current="page"{{ end }}>Contato</a>
+  {{ end }}
+</nav>
+      <a class="cta" href="{{ "/" | relURL }}#newsletter">Assinar newsletter</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section" aria-labelledby="heading-list">
+      <div class="section-header">
+        <h1 id="heading-list">{{ .Title }}</h1>
+        <a class="hidden-link" href="{{ "/" | relURL }}">← Home</a>
+      </div>
+      {{ with .Description }}<p class="sub" style="margin:0 0 14px;">{{ . }}</p>{{ end }}
+
+      {{ $p := .Paginate (.Pages.ByDate.Reverse) }}
+      <div class="grid">
+        {{ range $p.Pages }}
+          <article class="card">
+            <div class="media" aria-hidden="true"></div>
+            <div class="body">
+              {{ with index .Params.tags 0 }}<span class="tag">{{ . }}</span>{{ else }}<span class="tag">{{ .Section | title }}</span>{{ end }}
+              <h4><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
+              <div class="meta">{{ .ReadingTime }} min</div>
+            </div>
+          </article>
+        {{ end }}
+      </div>
+
+      <nav class="pager" aria-label="Paginação" style="margin-top:20px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+        <div>{{ with $p.Prev }}<a class="btn" href="{{ .URL }}">← Mais novos</a>{{ end }}</div>
+        <div>{{ with $p.Next }}<a class="btn" href="{{ .URL }}">Mais antigos →</a>{{ end }}</div>
+      </nav>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© {{ now.Year }} {{ .Site.Params.author }} — Todos os direitos reservados.</div>
+      <div class="social"><a href="#">IG</a><a href="#">YT</a><a href="#">@</a></div>
+    </div>
+  </footer>
+</body>
+</html>

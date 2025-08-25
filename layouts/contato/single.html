@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Contato · {{ .Site.Title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="{{ "/" | relURL }}">Rodrigo <span>Fernandes</span></a>
+      <nav class="nav" aria-label="Menu principal">
+  {{ $cur := .RelPermalink }}
+  {{ $items := .Site.Menus.main }}
+  {{ if gt (len $items) 0 }}
+    {{ range $items }}
+      {{ $href := .URL | relURL }}
+      {{ $active := strings.HasPrefix $cur $href }}
+      <a href="{{ $href }}" {{ if $active }}class="active" aria-current="page"{{ end }}>{{ .Name }}</a>
+    {{ end }}
+  {{ else }}
+    {{ $s := relURL "/sobre/" }}<a href="{{ $s }}" {{ if (strings.HasPrefix $cur $s) }}class="active" aria-current="page"{{ end }}>Sobre</a>
+    {{ $p := relURL "/paternidade/" }}<a href="{{ $p }}" {{ if (strings.HasPrefix $cur $p) }}class="active" aria-current="page"{{ end }}>Paternidade</a>
+    {{ $f := relURL "/fe/" }}<a href="{{ $f }}" {{ if (strings.HasPrefix $cur $f) }}class="active" aria-current="page"{{ end }}>Fé</a>
+    {{ $r := relURL "/reflexoes/" }}<a href="{{ $r }}" {{ if (strings.HasPrefix $cur $r) }}class="active" aria-current="page"{{ end }}>Reflexões</a>
+    {{ $c := relURL "/contato/" }}<a href="{{ $c }}" {{ if (strings.HasPrefix $cur $c) }}class="active" aria-current="page"{{ end }}>Contato</a>
+  {{ end }}
+</nav>
+      <a class="cta" href="{{ "/" | relURL }}#newsletter">Assinar newsletter</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section page">
+      <div class="section-header">
+        <h1>Contato</h1>
+        <a class="hidden-link" href="{{ "/" | relURL }}">← Home</a>
+      </div>
+
+      <div class="grid" style="grid-template-columns:1.1fr .9fr">
+        <article class="card">
+          <div class="body">
+            <h3 style="margin:0 0 6px">Envie uma mensagem</h3>
+            <form class="form" onsubmit="event.preventDefault(); alert('Mensagem enviada! (exemplo)'); this.reset();">
+              <label for="nome">Nome</label>
+              <input id="nome" class="input" type="text" placeholder="Seu nome" required>
+
+              <label for="email">E-mail</label>
+              <input id="email" class="input" type="email" placeholder="seu@email.com" required>
+
+              <label for="assunto">Assunto (opcional)</label>
+              <input id="assunto" class="input" type="text" placeholder="Sobre o que é?">
+
+              <label for="mensagem">Mensagem</label>
+              <textarea id="mensagem" class="input" rows="6" placeholder="Escreva sua mensagem..." required></textarea>
+
+              <button class="send" type="submit" style="margin-top:10px">Enviar</button>
+            </form>
+            <p class="meta" style="margin-top:8px">* Este formulário é demonstrativo. Integraremos com e-mail/serviço depois.</p>
+          </div>
+        </article>
+
+        <aside class="card">
+          <div class="body">
+            <h3 style="margin:0 0 6px">Outros canais</h3>
+            <p><strong>E-mail:</strong> <a href="mailto:seuemail@exemplo.com">seuemail@exemplo.com</a></p>
+            <p><strong>Instagram:</strong> <a href="#" target="_blank" rel="noopener">/seuusuario</a></p>
+            <p><strong>YouTube:</strong> <a href="#" target="_blank" rel="noopener">/seucanal</a></p>
+
+            <h4 style="margin:16px 0 6px">Envie feedback</h4>
+            <p>Ideias de posts, correções e sugestões são bem-vindas.</p>
+
+            <div class="embed" style="margin-top:10px">
+              <iframe src="about:blank" title="Mapa/Embed"></iframe>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© {{ now.Year }} {{ .Site.Params.author }} — Todos os direitos reservados.</div>
+      <div class="social"><a href="#">IG</a><a href="#">YT</a><a href="#">@</a></div>
+    </div>
+  </footer>
+</body>
+</html>

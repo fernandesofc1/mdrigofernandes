@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="{{ "/" | relURL }}">Rodrigo <span>Fernandes</span></a>
+      <nav class="nav" aria-label="Menu principal">
+  {{ $cur := .RelPermalink }}
+  {{ $items := .Site.Menus.main }}
+  {{ if gt (len $items) 0 }}
+    {{ range $items }}
+      {{ $href := .URL | relURL }}
+      {{ $active := strings.HasPrefix $cur $href }}
+      <a href="{{ $href }}" {{ if $active }}class="active" aria-current="page"{{ end }}>{{ .Name }}</a>
+    {{ end }}
+  {{ else }}
+    {{ $s := relURL "/sobre/" }}<a href="{{ $s }}" {{ if (strings.HasPrefix $cur $s) }}class="active" aria-current="page"{{ end }}>Sobre</a>
+    {{ $p := relURL "/paternidade/" }}<a href="{{ $p }}" {{ if (strings.HasPrefix $cur $p) }}class="active" aria-current="page"{{ end }}>Paternidade</a>
+    {{ $f := relURL "/fe/" }}<a href="{{ $f }}" {{ if (strings.HasPrefix $cur $f) }}class="active" aria-current="page"{{ end }}>Fé</a>
+    {{ $r := relURL "/reflexoes/" }}<a href="{{ $r }}" {{ if (strings.HasPrefix $cur $r) }}class="active" aria-current="page"{{ end }}>Reflexões</a>
+    {{ $c := relURL "/contato/" }}<a href="{{ $c }}" {{ if (strings.HasPrefix $cur $c) }}class="active" aria-current="page"{{ end }}>Contato</a>
+  {{ end }}
+</nav>
+      <a class="cta" href="{{ "/" | relURL }}#newsletter">Assinar newsletter</a>
+    </div>
+  </header>
+
+  <main class="container">
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© {{ now.Year }} {{ .Site.Params.author }} — Todos os direitos reservados.</div>
+      <div class="social"><a href="#">IG</a><a href="#">YT</a><a href="#">@</a></div>
+    </div>
+  </footer>
+</body>
+</html>
