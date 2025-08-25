@@ -1,0 +1,36 @@
+baseURL: "https://mdrigofernandes.com.br/"
+languageCode: "pt-br"
+title: "Rodrigo Fernandes — Blog Pessoal"
+
+pagination:
+  pageSize: 9
+
+defaultContentLanguage: "pt"
+enableRobotsTXT: true
+
+taxonomies:
+  tag: "tags"
+  series: "series"
+
+menu:
+  main:
+    - name: "Sobre"
+      url: "/sobre/"
+      weight: 1
+    - name: "Paternidade"
+      url: "/paternidade/"
+      weight: 2
+    - name: "Fé"
+      url: "/fe/"
+      weight: 3
+    - name: "Reflexões"
+      url: "/reflexoes/"
+      weight: 4
+    - name: "Contato"
+      url: "/contato/"
+      weight: 5
+
+
+params:
+  author: "Rodrigo Fernandes"
+  accent: "#2ed573"
